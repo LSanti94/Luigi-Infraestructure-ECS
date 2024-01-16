@@ -68,3 +68,32 @@ module "ssl_certificate" {
   domain_name       = var.domain_name
   alternative_names = var.alternative_names
 }
+
+# Create alb
+module "alb" {
+  source                = "git@github.com:LSanti94/terraform-modules.git//alb"
+  project_name          = local.project_name
+  environment           = local.environment
+  alb_security_group_id = module.security_group.alb_security_group_id
+  public_subnet_az1_id  = module.vpc.public_subnet_az1_id
+  public_subnet_az2_id  = module.vpc.public_subnet_az2_id
+  target_type           = var.target_type
+  vpc_id                = module.vpc.vpc_id
+  certificate_arn       = module.ssl_certificate.certificate_arn
+}
+
+# Create s3
+module "s3" {
+  source               = "git@github.com:LSanti94/terraform-modules.git//s3"
+  project_name_bucket  = var.project_name_bucket
+  env_file_bucket_name = var.env_file_bucket_name
+  env_file_name        = var.env_file_name
+}
+
+# Create ecs task execution role
+module "ecs_task_execution_role" {
+  source               = "git@github.com:LSanti94/terraform-modules.git//iam-role"
+  project_name_bucket  = module.s3.project_name_bucket
+  env_file_bucket_name = module.s3.env_file_bucket_name
+  environment          = local.environment
+}
