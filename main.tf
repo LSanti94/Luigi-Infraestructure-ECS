@@ -85,15 +85,16 @@ module "alb" {
 # Create s3
 module "s3" {
   source               = "git@github.com:LSanti94/terraform-modules.git//s3"
-  project_name_bucket  = var.project_name_bucket
+  project_name         = local.project_name
   env_file_bucket_name = var.env_file_bucket_name
   env_file_name        = var.env_file_name
+
 }
 
 # Create ecs task execution role
 module "ecs_task_execution_role" {
   source               = "git@github.com:LSanti94/terraform-modules.git//iam-role"
-  project_name_bucket  = module.s3.project_name_bucket
+  project_name         = local.project_name
   env_file_bucket_name = module.s3.env_file_bucket_name
   environment          = local.environment
 }

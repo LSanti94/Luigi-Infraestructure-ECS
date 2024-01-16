@@ -35,6 +35,5 @@ variable "alternative_names" {}
 variable "target_type" {}
 
 # s3
-variable "project_name_bucket" {}
 variable "env_file_bucket_name" {}
 variable "env_file_name" {}
