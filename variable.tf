@@ -37,3 +37,7 @@ variable "target_type" {}
 # s3
 variable "env_file_bucket_name" {}
 variable "env_file_name" {}
+
+# ecs
+variable "architecture" {}
+variable "container_image" {}
