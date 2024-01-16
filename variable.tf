@@ -20,3 +20,9 @@ variable "private_route_table_az2_cidr" {}
 # SG
 variable "SG_cidr_ingress_egress_IPV4" {}
 variable "ssh_ip" {}
+
+# rds
+variable "database_snapshot_identifier" {}
+variable "database_instance_class" {}
+variable "database_instance_identifier" {}
+variable "multi_az_deployment" {}
