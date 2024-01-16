@@ -26,3 +26,7 @@ variable "database_snapshot_identifier" {}
 variable "database_instance_class" {}
 variable "database_instance_identifier" {}
 variable "multi_az_deployment" {}
+
+# acm
+variable "domain_name" {}
+variable "alternative_names" {}
