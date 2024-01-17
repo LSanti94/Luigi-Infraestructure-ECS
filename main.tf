@@ -115,3 +115,20 @@ module "ecs" {
   app_server_security_group_id = module.security_group.app_server_security_group_id
   alb_target_group_arn         = module.alb.alb_target_group_arn
 }
+
+# create auto scaling group
+module "ecs_asg" {
+  source       = "git@github.com:LSanti94/terraform-modules.git//asg-ecs"
+  project_name = local.project_name
+  environment  = local.environment
+  ecs_service  = module.ecs.ecs_service
+}
+
+# route-53
+module "route_53" {
+  source = "git@github.com:LSanti94/terraform-modules.git//route53"
+  domain_name = module.ssl_certificate.domain_name
+  record_name = var.record_name
+  application_load_balancer_dns_name = module.alb.application_load_balancer_dns_name
+  application_load_balancer_zone_id = module.alb.application_load_balancer_zone_id
+}
