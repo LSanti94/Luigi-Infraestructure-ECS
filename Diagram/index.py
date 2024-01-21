@@ -29,7 +29,7 @@ with Diagram("Web Service", show=False):
         iam = IdentityAndAccessManagementIamRole("Iam-Role")
         dns = Route53("dns")
         acm = ACM("ACM")
-        s3 = S3("bucket S3")
+        s3 = S3("backend")
 
         with Cluster("Availability Zone us-east-1a"):
             with Cluster(f"Public Subnet AZ1 - {SUBNET_CIDRS['AZ1']['PUBLIC']}"):
